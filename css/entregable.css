@@ -1,0 +1,36 @@
+.ficha{
+    width: 220px;
+    height: 300px;
+    margin: 20px;
+  }
+  .editar{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+  }
+  .container{
+      width: 220px;
+      margin: 20px;
+      display:flex;
+    flex-flow: row wrap;
+  }
+
+  .borrado{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #ba1818;
+    border-radius: 6px;
+    border: 2px solid #b00000;
+  }
+  
+.titulo{
+    text-align: center;
+}
