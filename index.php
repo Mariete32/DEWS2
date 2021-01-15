@@ -1,3 +1,7 @@
+<?php
+require_once "./lib/database.php";
+require_once "./bbdd/usuarios_crud.php";
+?>
 <!DOCTYPE html>
 
 <head>
@@ -23,20 +27,29 @@
         </div>
         <div class="subcontainer">
         <?php
+        $email="";
+        $password="";
             if (isset($_GET["error"])) {
                 echo '<div class="alert alert-danger d-flex"><p>datos incorrectos</p></div>';
+            }
+            if (isset($_COOKIE["id"])) {
+                $ID=$_COOKIE["id"];
+                $crudUsuario = new CrudUsuario();
+                $usuario= $crudUsuario->obtenerEmailPassword($ID);
+                $email=$usuario->get_email();
+                $password=$usuario->get_password();
             }
         ?>
             <form action="peliculas.php" method="POST">
                 <p>
                     <label for="email">Usuario: </label>
-                    <input type="text" name="email" >
+                    <input type="text" name="email" value="<?php echo $email ?>">
                 </p>
                 <p>
                     <label for="password">Password</label>
-                    <input type="password" name="password" >
+                    <input type="password" name="password" value="<?php echo $password?>">
                 </p>
-                <p> <input type="checkbox" name="recordatorio">guardar mis credenciales</p>
+                <p> <input type="checkbox" name="recordatorio" <?php if (isset($ID)) {echo"checked";} ?>>guardar mis credenciales</p>
                 </p>
                 <p> <input type="submit" value="Enviar"> </p>
             </form>

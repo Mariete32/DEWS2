@@ -2,7 +2,7 @@
 require_once "./classes/usuarios.php";
 class CrudUsuario{
 public function __construct(){}
-public function obtenerUsuario($usuario){
+public function obtenerIdUsuario($usuario){
 
     $conexion = database::conexion();
     $consulta = 'SELECT * FROM usuarios WHERE email=:email AND password=:password';
@@ -18,9 +18,19 @@ public function obtenerUsuario($usuario){
     }
     return $id;
 }
-
-
+public function obtenerEmailPassword($id){
+    $conexion = database::conexion();
+    
+    $consulta="SELECT * FROM usuarios WHERE ID= $id";
+    $consulta_preparada=$conexion->prepare($consulta);
+    $consulta_preparada->execute();
+    $resultado = $consulta_preparada->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($resultado as $valor) {
+        $email=$valor["email"];
+        $password=$valor["password"];
+        $usuario= new Usuario($email,$password);
 }
-
-
+return $usuario;
+}
+}
 ?>

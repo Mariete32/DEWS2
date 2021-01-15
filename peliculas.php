@@ -7,17 +7,17 @@ session_start();
 //si los campos estan rellenos
 if (isset($_POST["email"]) && isset($_POST["password"])) {
     //creamos el objeto usuario con los datos introducidos
-    $login = new usuario($_POST["email"], $_POST["password"]);
+    $login = new Usuario($_POST["email"], $_POST["password"]);
 
     $crudUsuario = new CrudUsuario();
 
-    $id = $crudUsuario->obtenerUsuario($login);
+    $id = $crudUsuario->obtenerIdUsuario($login);
     if ($id == 0 || $id == null) {
         header("Location: ./index.php?error=1");
     } else {
         //si marca recordar credenciales, almacenamos el ID en la coockie
         if (isset($_POST["recordatorio"])) {
-            setcookie("id", $id, time() + 60);
+            setcookie("id", $id, time() + 600);
         }
     }
 } else {
