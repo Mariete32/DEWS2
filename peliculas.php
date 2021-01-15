@@ -59,16 +59,6 @@ foreach ($resutado = $consultaPreparada->fetchAll(PDO::FETCH_ASSOC) as $fila) {
     echo '<a class="editar" href="peliculas_form.php?id=' . $fila['id'] . '&titulo=' . $fila['titulo'] . '&duracion=' . $fila['duracion'] . '&anyo=' . $fila['anyo'] . '">editar</a>';
     echo '<a class="borrado" href="peliculas_borrado.php?id=' . $fila['id'] . '&titulo=' . $fila['titulo'] . '&duracion=' . $fila['duracion'] . '&anyo=' . $fila['anyo'] . '">editar</a>';
     echo '</div>';
-
-/*$consulta='SELECT * FROM peliculas';
-foreach($conexion->query($consulta) as $fila){
-echo '<tr>';
-echo '<td>' . $fila['id'] . '</td>';
-echo '<td>' . $fila['titulo'] . '</td>';
-echo '<td>' . $fila['anyo'] . '</td>';
-echo '<td>' . $fila['duracion'] . '</td>';
-
-}*/
 }
 ?>
     </div>
