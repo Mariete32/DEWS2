@@ -1,3 +1,8 @@
+<?php
+require_once "./bbdd/peliculas_crud.php";
+require_once "./classes/peliculas.php";
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,11 +16,39 @@
 </head>
 
 <body>
+<?php
+$id=$_GET["id"];
+$pelicula=new CrudPeliculas();
+$pelicula->obtenerPelicula($id);
+//var_dump($pelicula);
+//$titulo=$pelicula->get_titulo();
+//$anyo=$pelicula->get_anyo();
+//$duracion=$pelicula->get_duracion();
+$titulo=$_GET["titulo"];
+$anyo=$_GET["anyo"];
+$duracion=$_GET["duracion"];
+
+
+?>
     <div class="alert alert-secondary d-flex">
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
     <div class="container">
-        <!-- ESCRIBE AQUÍ TU CÓDIGO -->
+    <form action="peliculas_form.php" method="POST">
+                <p>
+                    <label for="titulo">Titulo: </label>
+                    <input type="text" name="titulo" value="<?php echo $titulo ?>">
+                </p>
+                <p>
+                    <label for="anyo">Año</label>
+                    <input type="text" name="anyo" value="<?php echo $anyo?>">
+                </p>
+                <p>
+                    <label for="duracion">duracion</label>
+                    <input type="text" name="duracion" value="<?php echo $duracion?>">
+                </p>
+                <p> <input type="submit" value="Guardar"> </p>
+            </form>
     </div>
 
 </body>

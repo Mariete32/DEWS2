@@ -17,7 +17,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     } else {
         //si marca recordar credenciales, almacenamos el ID en la coockie
         if (isset($_POST["recordatorio"])) {
-            setcookie("id", $id, time() + 600);
+            setcookie("id", $id, time() + 60);
         }
     }
 } else {
