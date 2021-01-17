@@ -1,6 +1,7 @@
 <?php
 require_once "./lib/database.php";
 require_once "./bbdd/usuarios_crud.php";
+session_start();
 ?>
 <!DOCTYPE html>
 
@@ -29,13 +30,17 @@ require_once "./bbdd/usuarios_crud.php";
         <?php
         $email="";
         $password="";
+        //si introducimos mal el email o la contraseña nos muestra mensaje
             if (isset($_GET["error"])) {
                 echo '<div class="alert alert-danger d-flex"><p>datos incorrectos</p></div>';
             }
+            //si hemos creado la cookie en el login anterior extraemos email y contraseña de la bbdd
             if (isset($_COOKIE["id"])) {
                 $ID=$_COOKIE["id"];
                 $crudUsuario = new CrudUsuario();
+                //creamos la clase usuario desde el crudusuario
                 $usuario= $crudUsuario->obtenerEmailPassword($ID);
+                //extraemos el email y el password para ponerlo en los inputs
                 $email=$usuario->get_email();
                 $password=$usuario->get_password();
             }

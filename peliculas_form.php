@@ -1,7 +1,7 @@
 <?php
 require_once "./bbdd/peliculas_crud.php";
 require_once "./classes/peliculas.php";
-
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,16 +17,19 @@ require_once "./classes/peliculas.php";
 
 <body>
 <?php
+if (isset($_POST["titulo"]) & isset($_POST["anyo"]) & isset($_POST["duracion"])) {
+    //si insertamos datos, actualizamos los datos de esa pelicula
+    $crudPelicula=new CrudPeliculas();
+    $crudPelicula::editarPelicula($_GET["id"],$_POST["titulo"],$_POST["anyo"],$_POST["duracion"]);
+
+}
 $id=$_GET["id"];
-$pelicula=new CrudPeliculas();
-$pelicula->obtenerPelicula($id);
-//var_dump($pelicula);
-//$titulo=$pelicula->get_titulo();
-//$anyo=$pelicula->get_anyo();
-//$duracion=$pelicula->get_duracion();
-$titulo=$_GET["titulo"];
-$anyo=$_GET["anyo"];
-$duracion=$_GET["duracion"];
+$crudPelicula=new CrudPeliculas();
+$pelicula=$crudPelicula->obtenerPelicula($id);
+$titulo=$pelicula->get_titulo();
+$anyo=$pelicula->get_anyo();
+$duracion=$pelicula->get_duracion();
+
 
 
 ?>
@@ -34,7 +37,7 @@ $duracion=$_GET["duracion"];
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
     <div class="container">
-    <form action="peliculas_form.php" method="POST">
+    <form action="peliculas_form.php?id=<?php echo $id?>" method="POST">
                 <p>
                     <label for="titulo">Titulo: </label>
                     <input type="text" name="titulo" value="<?php echo $titulo ?>">

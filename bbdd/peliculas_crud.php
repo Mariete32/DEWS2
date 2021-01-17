@@ -4,6 +4,7 @@ require_once './lib/database.php';
 
 class CrudPeliculas{
 function __construct(){}
+//funcion que nos devuelve la clase pelicula con sus datos
 public function obtenerPelicula($id){
     
     $conexion = database::conexion();
@@ -19,13 +20,16 @@ foreach ($resultado as $value) {
 }
 return $pelicula;
 }
+
+//funcion que actualiza los valores en la base de datos
 public static function editarPelicula($id,$titulo,$anyo,$duracion){
     $conexion = database::conexion();
     $actualizacion="UPDATE peliculas SET titulo=:titulo, duracion=:duracion, anyo=:anyo WHERE id=$id";
-    $actualizacion->bindParam(':titulo', $titulo);
-    $actualizacion->bindParam(':anyo', $anyo);
-    $actualizacion->bindParam(':duracion', $duracion);
-    $actualizacion->execute();
+    $consultaPreparada=$conexion->prepare($actualizacion);
+    $consultaPreparada->bindparam(':titulo', $titulo);
+    $consultaPreparada->bindparam(':anyo', $anyo);
+    $consultaPreparada->bindparam(':duracion', $duracion);
+    $consultaPreparada->execute();
 }
 
 
