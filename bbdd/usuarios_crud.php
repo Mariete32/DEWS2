@@ -2,8 +2,9 @@
 require_once "./classes/usuarios.php";
 class CrudUsuario{
 public function __construct(){}
-public function obtenerIdUsuario($usuario){
 
+//funcion que extrae el id de la bbdd si existe el email y contraseña
+public function obtenerIdUsuario($usuario){
     $conexion = database::conexion();
     $consulta = 'SELECT * FROM usuarios WHERE email=:email AND password=:password';
     $consultaPreparada = $conexion->prepare($consulta);
@@ -18,9 +19,10 @@ public function obtenerIdUsuario($usuario){
     }
     return $id;
 }
+
+//funcion que nos devuelve la clase usuario con el email y contraseña
 public function obtenerEmailPassword($id){
     $conexion = database::conexion();
-    
     $consulta="SELECT * FROM usuarios WHERE ID= $id";
     $consulta_preparada=$conexion->prepare($consulta);
     $consulta_preparada->execute();

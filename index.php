@@ -28,6 +28,7 @@ session_start();
         </div>
         <div class="subcontainer">
         <?php
+        //inicializamos las variables
         $email="";
         $password="";
         //si introducimos mal el email o la contraseña nos muestra mensaje
