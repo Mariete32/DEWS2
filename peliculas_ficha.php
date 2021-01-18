@@ -1,3 +1,14 @@
+<?php
+require_once "./bbdd/actores_crud.php";
+require_once "./bbdd/directores_crud.php";
+require_once "./bbdd/peliculas_crud.php";
+require_once "./classes/actores.php";
+require_once "./classes/directores.php";
+require_once "./classes/peliculas.php";
+session_start();
+
+?>
+
 <!DOCTYPE html>
 
 <head>
@@ -16,7 +27,30 @@
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
     <div class="container">
-        <!-- ESCRIBE AQUÍ TU CÓDIGO -->
+    <?php
+if (isset($_GET["id"])) {
+    $ID_pelicula = $_GET["id"];    
+    //creamos la clase pelicula con sus datos desde el crudpeliculas
+    $crudPelicula = new CrudPeliculas();
+    $pelicula = $crudPelicula->obtenerPelicula($ID_pelicula);
+
+    //imprimimos los datos de la pelicula
+    $crudPelicula->imprimirDatos($pelicula);
+
+    //creamos la clase director con los datos desde el cruddirector
+    $crudDirector = new CrudDirector();
+    $director=$crudDirector->obtenerDirector($ID_pelicula);
+
+    //imprimimos el nombre del director
+    $crudDirector->imprimirDirector($director);
+
+    //creamos las clases de los actores
+    $CrudActores = new CrudActores();
+    echo '<p><strong>Actores:</strong></p>';
+    $actor=$CrudActores->obtenerActor($ID_pelicula);
+    
+}
+?>
     </div>
 </body>
 

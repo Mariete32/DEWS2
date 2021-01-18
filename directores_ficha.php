@@ -1,3 +1,9 @@
+<?php
+require_once "./bbdd/directores_crud.php";
+require_once "./classes/directores.php";
+session_start();
+
+?>
 <!DOCTYPE html>
 
 <head>
@@ -16,7 +22,12 @@
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
     <div class="container">
-        <!-- ESCRIBE AQUÍ TU CÓDIGO -->
+    <?php
+    $id_director = $_GET["id"];
+    $directorCrud=new CrudDirector();
+    $director=$directorCrud->datosDirector($id_director);
+    $directorCrud->imprimirDatosDirector($director);
+    ?>
     </div>
 </body>
 

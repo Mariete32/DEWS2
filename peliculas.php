@@ -2,15 +2,19 @@
 require_once "./lib/database.php";
 require_once "./classes/usuarios.php";
 require_once "./bbdd/usuarios_crud.php";
+require_once "./bbdd/peliculas_crud.php";
 session_start();
     
      //si los campos estan rellenos
 if (isset($_POST["email"]) && isset($_POST["password"])) {
+
     //creamos el objeto usuario con los datos introducidos
     $login = new Usuario($_POST["email"], $_POST["password"]);
+
     //creamos el objeto crudusuario para gestionar el login
     $crudUsuario = new CrudUsuario();
     $id = $crudUsuario->obtenerIdUsuario($login);
+
     //si el usuario o contraseña son incorrectos la bbdd no devuelve el id
     if ($id == 0 || $id == null) {
         header("Location: ./index.php?error=1");
@@ -22,14 +26,13 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             setcookie("id", $id, time() + 60);
         }
     }
+
     //si ya estamos logueados no nos redirije a index.php
 } else if (!isset($_SESSION["usuario"])){
     header("Location: ./index.php");
 }
-
 ?>
 <!DOCTYPE html>
-
 <head>
     <meta charset="utf-8">
     <title>Películas</title>
@@ -48,21 +51,15 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     </div>
     <div class="cajetin">
         <?php
-//mostramos las peliculas disponibles
-$conexion = database::conexion();
-$consulta = 'SELECT * FROM peliculas';
-$consultaPreparada = $conexion->prepare($consulta);
-$consultaPreparada->execute();
-foreach ($resutado = $consultaPreparada->fetchAll(PDO::FETCH_ASSOC) as $fila) {
-    echo '<div>';
-    echo '<a href="peliculas_ficha.php?id=' . $fila['id'] . '">';
-    echo '<img class="ficha" src="./imgs/peliculas/' . $fila['id'] . '.jpg"/></a>';
-    echo '<p class="titulo">' . $fila['titulo'] . '</p>';
-    echo '<a class="editar" href="peliculas_form.php?id=' . $fila['id'] . '">editar</a>';
-    echo '<a class="borrado" href="peliculas_borrado.php?id=' . $fila['id'] . '">borrar</a>';
-    echo '</div>';
-}
-?>
+        if (isset($_GET["idBorrar"])) {
+            $idBorrar=$_GET["idBorrar"];
+            $borrarPelicula=new CrudPeliculas();
+            $borrarPelicula->eliminarPelicula($idBorrar);
+        }
+        //mostramos las peliculas existentes
+            $peliculas=new CrudPeliculas();
+            $peliculas->mostrarPeliculas();
+        ?>
     </div>
 </body>
 

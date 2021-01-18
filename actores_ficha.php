@@ -1,3 +1,10 @@
+<?php
+require_once "./bbdd/actores_crud.php";
+require_once "./classes/actores.php";
+session_start();
+
+?>
+
 <!DOCTYPE html>
 
 <head>
@@ -16,8 +23,12 @@
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
     <div class="container">
-        <!-- ESCRIBE AQUÍ TU CÓDIGO -->
-
+    <?php
+    $id_actor = $_GET["id"];
+    $actorCrud=new CrudActores();
+    $actor=$actorCrud->datosActor($id_actor);
+    $actorCrud->imprimirDatos($actor);
+    ?>
     </div>
 </body>
 

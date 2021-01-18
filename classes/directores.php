@@ -7,7 +7,12 @@ class Director{
     private $pais;
     private $id;
 
-    function __construct(){}
+    function __construct($nombre,$anyoNacimiento,$pais,$id){
+        $this->nombre=$nombre;
+        $this->anyoNacimiento=$anyoNacimiento;
+        $this->pais=$pais;
+        $this->id=$id;
+    }
     //hacemos las funciones get de los datos del Director
     public function get_nombre(){
         return $this->nombre;

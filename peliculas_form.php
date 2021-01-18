@@ -20,11 +20,12 @@ session_start();
 if (isset($_POST["titulo"]) & isset($_POST["anyo"]) & isset($_POST["duracion"])) {
     //si insertamos datos, actualizamos los datos de esa pelicula
     $crudPelicula = new CrudPeliculas();
-    $exito=$crudPelicula::editarPelicula($_GET["id"], $_POST["titulo"], $_POST["anyo"], $_POST["duracion"]);
+    $pelicula=new Pelicula($_GET["id"],  $_POST["anyo"], $_POST["duracion"],$_POST["titulo"]);
+    $exito=$crudPelicula::editarPelicula($pelicula);
     if ($exito==1) {
         echo '<div class="alert alert-success" role="alert">';
         echo "<h2>La película ha sido guardada con éxito</h2></div>";
-        echo '<a href="películas.php">volver al inicio</a>';
+        echo '<a href="./peliculas.php">volver al inicio</a>';
     } else {
         echo '<div class="alert alert-danger" role="alert">';
         echo "<h2>La película no ha sido guardada con éxito</h2></div>";
