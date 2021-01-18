@@ -23,8 +23,9 @@ public function obtenerIdUsuario($usuario){
 //funcion que nos devuelve la clase usuario con el email y contraseña
 public function obtenerEmailPassword($id){
     $conexion = database::conexion();
-    $consulta="SELECT * FROM usuarios WHERE ID= $id";
+    $consulta="SELECT * FROM usuarios WHERE id=:id";
     $consulta_preparada=$conexion->prepare($consulta);
+    $consultaPreparada->bindValue(':id', $id);
     $consulta_preparada->execute();
     $resultado = $consulta_preparada->fetchAll(PDO::FETCH_ASSOC);
     foreach ($resultado as $valor) {
@@ -33,6 +34,15 @@ public function obtenerEmailPassword($id){
         $usuario= new Usuario($email,$password);
 }
 return $usuario;
+}
+
+//funcion que elimina el usuario
+public function eliminarUsuario($id){
+    $conexion = database::conexion();
+    $consulta="DELETE FROM usuarios WHERE  id=:id";
+    $consultaPreparada = $conexion->prepare($consulta);
+    $consultaPreparada->bindValue(':id', $id);
+    $consultaPreparada->execute();
 }
 }
 ?>

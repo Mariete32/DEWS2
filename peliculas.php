@@ -51,6 +51,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     </div>
     <div class="cajetin">
         <?php
+        //si tenemos la vairable idBorrar, borramos los datos de la pelicula
         if (isset($_GET["idBorrar"])) {
             $idBorrar=$_GET["idBorrar"];
             $borrarPelicula=new CrudPeliculas();

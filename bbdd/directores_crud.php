@@ -27,6 +27,8 @@ public function imprimirDatosDirector($director){
     echo '<p><strong>Nombre: </strong>'.$director->get_nombre().'</p><br>';
     echo '<p><strong>Año de nacimiento: </strong>'.$director->get_anyoNacimiento().'</p><br>';
     echo '<p><strong>País: </strong>'.$director->get_pais().'</p><br>';
+    echo '<a class="editar" href="actores_form.php?id=' . $director->get_id() . '">editar</a>';
+    echo '<a class="borrado" href="actores_ficha.php?idBorrar=' . $director->get_id() . '">borrar</a>';
 }
 
 //funcion que crea una clase director con los datos de la bbdd
@@ -66,6 +68,13 @@ public static function editarDirector($director)
     }
 
 }
-
+//funcion que elimina el director
+public function eliminarDirector($id){
+    $conexion = database::conexion();
+    $consulta="DELETE FROM directores WHERE  id=:id";
+    $consultaPreparada = $conexion->prepare($consulta);
+    $consultaPreparada->bindValue(':id', $id);
+    $consultaPreparada->execute();
+}
 }
 ?>

@@ -23,16 +23,16 @@ class CrudPeliculas{
     }
 
 //funcion que actualiza los valores en la base de datos
-    public static function editarPelicula($pelicula)
-    {
+    public static function editarPelicula($pelicula)    {
         try {
             $conexion = database::conexion();
             $id = $pelicula->get_id();
-            $actualizacion = "UPDATE peliculas SET titulo=:titulo, duracion=:duracion, anyo=:anyo WHERE id=$id";
+            $actualizacion = "UPDATE peliculas SET titulo=:titulo, duracion=:duracion, anyo=:anyo, id=:id  WHERE id=$id";
             $consultaPreparada = $conexion->prepare($actualizacion);
             $consultaPreparada->bindValue(':titulo', $pelicula->get_titulo());
             $consultaPreparada->bindValue(':anyo', $pelicula->get_anyo());
             $consultaPreparada->bindValue(':duracion', $pelicula->get_duracion());
+            $consultaPreparada->bindValue(':id', $pelicula->get_id());
             $consultaPreparada->execute();
             $exito = 1;
             return $exito;
@@ -71,6 +71,7 @@ class CrudPeliculas{
         }
     }
 
+    //funcion que elimina la pelicula
     public function eliminarPelicula($id){
         $conexion = database::conexion();
         $consulta="DELETE FROM peliculas WHERE  id=:id";

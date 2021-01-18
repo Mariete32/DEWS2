@@ -52,21 +52,21 @@ $duracion = $pelicula->get_duracion();
                 <input type="text" name="titulo" value="<?php echo $titulo ?>">
             </p>
             <p>
-                <label for="anyo">Año</label>
+                <label for="anyo">Año:</label>
                 <input type="text" name="anyo" value="<?php echo $anyo ?>">
             </p>
             <p>
-                <label for="duracion">duracion</label>
+                <label for="duracion">Duracion:</label>
                 <input type="text" name="duracion" value="<?php echo $duracion ?>">
                 <input type="hidden" name="guardado" value="ok">
             </p>
             <p> <input type="submit" value="Guardar"> </p>
         </form>
     </div>
-
-</body>
-<?php
+    <?php
 }
 ?>
+</body>
+
 
 </html>

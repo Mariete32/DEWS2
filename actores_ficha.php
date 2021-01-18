@@ -16,6 +16,7 @@ session_start();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/estilos.css">
+    <link rel="stylesheet" href="./css/entregable.css">
 </head>
 
 <body>
@@ -24,10 +25,17 @@ session_start();
     </div>
     <div class="container">
     <?php
+    //si tenemos la vairable idBorrar, borramos los datos de la pelicula
+    if (isset($_GET["idBorrar"])) {
+        $idBorrar=$_GET["idBorrar"];
+        $borrarActor=new CrudActores();
+        $borrarActor->eliminarActor($idBorrar);
+    }else{
     $id_actor = $_GET["id"];
     $actorCrud=new CrudActores();
     $actor=$actorCrud->datosActor($id_actor);
     $actorCrud->imprimirDatos($actor);
+    }
     ?>
     </div>
 </body>
