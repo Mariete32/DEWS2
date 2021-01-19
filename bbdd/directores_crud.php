@@ -1,14 +1,11 @@
 <?php
 require_once './classes/directores.php';
 require_once './lib/database.php';
-class CrudDirector
-{
-    public function __construct()
-    {}
+class CrudDirector{
+    public function __construct(){}
 
 //funcion que obtiene el id del director en relacion con la pelicula
-    public function obtenerDirector($id_pelicula)
-    {
+    public function obtenerDirector($id_pelicula){
         $conexion = database::conexion();
         //consultamos el id del director correspondiente con la id_pelicula en la tabla peliculas_directores
         $consulta = "SELECT id_director FROM peliculas_directores WHERE id_pelicula= $id_pelicula";
@@ -26,15 +23,13 @@ class CrudDirector
 
     }
 //funcion que imprime el nombre del director
-    public function imprimirNombreDirector($director)
-    {
+    public function imprimirNombreDirector($director){
         echo '<p><strong>Director:</strong></p>';
         echo '<a href=directores_ficha.php?id=' . $director->get_id() . '>' . $director->get_nombre() . '</a>';
     }
 
 //funcion que imprime los datos del director
-    public function imprimirDatosDirector($director)
-    {
+    public function imprimirDatosDirector($director){
         echo '<p><strong>Nombre: </strong>' . $director->get_nombre() . '</p><br>';
         echo '<p><strong>Año de nacimiento: </strong>' . $director->get_anyoNacimiento() . '</p><br>';
         echo '<p><strong>País: </strong>' . $director->get_pais() . '</p><br>';
@@ -43,8 +38,7 @@ class CrudDirector
     }
 
 //funcion que crea una clase director con los datos de la bbdd
-    public function datosDirector($id_director)
-    {
+    public function datosDirector($id_director){
         $conexion = database::conexion();
         $consulta = "SELECT * FROM directores WHERE id= $id_director";
         $consultaPreparada = $conexion->prepare($consulta);
@@ -61,8 +55,7 @@ class CrudDirector
     }
 
 //funcion que actualiza los valores en la base de datos
-    public static function editarDirector($director)
-    {
+    public static function editarDirector($director){
         try {
             $conexion = database::conexion();
             $id = $director->get_id();
@@ -82,7 +75,7 @@ class CrudDirector
     }
 
 //funcion que elimina el director
-    public function eliminarDirector($id_director)    {
+    public function eliminarDirector($id_director){
         try {
             $conexion = database::conexion();
             $consulta = "DELETE FROM directores WHERE  id=:id_director";
@@ -102,8 +95,7 @@ class CrudDirector
     }
 
 //funcion que inserta un director en la bbdd
-    public function insertarDirector($director)
-    {
+    public function insertarDirector($director){
         $conexion = Database::conexion();
         $insertar = $conexion->prepare('INSERT INTO directores values(NULL,:nombre,:anyoNacimiento,:pais)');
         $insertar->bindValue(':nombre', $director->get_nombre());

@@ -23,14 +23,25 @@ session_start();
     <div class="alert alert-secondary d-flex">
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
-    <div class="container">
     <?php
     //si tenemos la variable idBorrar, borramos los datos del actor
     if (isset($_GET["idBorrar"])) {
         $idBorrar=$_GET["idBorrar"];
         $borrarActor=new CrudActores();
-        $borrarActor->eliminarActor($idBorrar);
+        $exito =$borrarActor->eliminarActor($idBorrar);
+        if ($exito == 1) {
+            echo '<div class="alert alert-success" role="alert">';
+            echo "<h2>El actor ha sido borrado con éxito</h2></div>";
+            echo '<a href="./peliculas.php">volver al inicio</a>';
+        } else {
+            echo '<div class="alert alert-danger" role="alert">';
+            echo "<h2>El actor no ha sido borrado con éxito</h2></div>";
+            echo '<a href="peliculas.php">volver al inicio</a>';
+        }
     }else{
+        ?>
+    <div class="container">
+    <?php
     $id_actor = $_GET["id"];
     $actorCrud=new CrudActores();
     $actor=$actorCrud->datosActor($id_actor);
