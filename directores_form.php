@@ -16,8 +16,6 @@ session_start();
 </head>
 
 <body>
-
-    
         <?php
         if (isset($_POST["nombre"]) & isset($_POST["anyoNacimiento"]) & isset($_POST["pais"])) {
             //si insertamos datos, actualizamos los datos de esa pelicula

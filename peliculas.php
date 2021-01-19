@@ -49,17 +49,30 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     <div class="alert alert-secondary d-flex">
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
-    <div class="cajetin">
+    
         <?php
         //si tenemos la vairable idBorrar, borramos los datos de la pelicula
         if (isset($_GET["idBorrar"])) {
             $idBorrar=$_GET["idBorrar"];
             $borrarPelicula=new CrudPeliculas();
-            $borrarPelicula->eliminarPelicula($idBorrar);
-        }
-        //mostramos las peliculas existentes
+            $exito=$borrarPelicula->eliminarPelicula($idBorrar);
+            if ($exito==1) {
+                echo '<div class="alert alert-success" role="alert">';
+                echo "<h2>La película ha sido guardada con éxito</h2></div>";
+                echo '<a href="./peliculas.php">volver al inicio</a>';
+            } else {
+                echo '<div class="alert alert-danger" role="alert">';
+                echo "<h2>La película no ha sido guardada con éxito</h2></div>";
+                echo '<a href="peliculas.php">volver al inicio</a>';
+            }
+        }else{
+            ?>
+            <div class="alert alert-light d-flex" role="alert">
+            <?php
+            //mostramos las peliculas existentes
             $peliculas=new CrudPeliculas();
             $peliculas->mostrarPeliculas();
+        }
         ?>
     </div>
 </body>

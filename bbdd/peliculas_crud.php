@@ -2,11 +2,14 @@
 require_once './classes/peliculas.php';
 require_once './lib/database.php';
 
-class CrudPeliculas{
-    public function __construct(){}
+class CrudPeliculas
+{
+    public function __construct()
+    {}
 
     //funcion que nos devuelve la clase pelicula con sus datos
-    public function obtenerPelicula($id){
+    public function obtenerPelicula($id)
+    {
         $conexion = database::conexion();
         $consulta = "SELECT * FROM peliculas WHERE id=:id";
         $consultaPreparada = $conexion->prepare($consulta);
@@ -23,7 +26,8 @@ class CrudPeliculas{
     }
 
 //funcion que actualiza los valores en la base de datos
-    public static function editarPelicula($pelicula)    {
+    public static function editarPelicula($pelicula)
+    {
         try {
             $conexion = database::conexion();
             $id = $pelicula->get_id();
@@ -43,7 +47,8 @@ class CrudPeliculas{
     }
 
     //funcion que imprime los datos de la pelicula
-    public function imprimirDatos($pelicula){
+    public function imprimirDatos($pelicula)
+    {
         //extraemos los datos de las peliculas
         $titulo = $pelicula->get_titulo();
         $duracion = $pelicula->get_duracion();
@@ -55,16 +60,17 @@ class CrudPeliculas{
     }
 
     //funcion que muestra las peliculas existentes con la caratula y los botones editar y borrar
-    public function mostrarPeliculas(){
+    public function mostrarPeliculas()
+    {
         $conexion = database::conexion();
         $consulta = 'SELECT * FROM peliculas';
         $consultaPreparada = $conexion->prepare($consulta);
         $consultaPreparada->execute();
         foreach ($resutado = $consultaPreparada->fetchAll(PDO::FETCH_ASSOC) as $fila) {
-            echo '<div>';
+            echo '<div >';
             echo '<a href="peliculas_ficha.php?id=' . $fila['id'] . '">';
             echo '<img class="ficha" src="./imgs/peliculas/' . $fila['id'] . '.jpg"/></a>';
-            echo '<p class="titulo">' . $fila['titulo'] . '</p>';
+            echo '<p >' . $fila['titulo'] . '</p>';
             echo '<a class="editar" href="peliculas_form.php?id=' . $fila['id'] . '">editar</a>';
             echo '<a class="borrado" href="peliculas.php?idBorrar=' . $fila['id'] . '">borrar</a>';
             echo '</div>';
@@ -72,21 +78,29 @@ class CrudPeliculas{
     }
 
     //funcion que elimina la pelicula
-    public function eliminarPelicula($id){
-        $conexion = database::conexion();
-        $consulta="DELETE FROM peliculas WHERE  id=:id";
-        $consultaPreparada = $conexion->prepare($consulta);
-        $consultaPreparada->bindValue(':id', $id);
-        $consultaPreparada->execute();
+    public function eliminarPelicula($id)    {
+        try {
+            $conexion = database::conexion();
+            $consulta = "DELETE FROM peliculas WHERE  id=:id";
+            $consultaPreparada = $conexion->prepare($consulta);
+            $consultaPreparada->bindValue(':id', $id);
+            $consultaPreparada->execute();
+            $exito = 1;
+            return $exito;
+        } catch (exception $e) {
+            $exito = 0;
+            return $exito;
+        }
     }
 
     //funcion que inserta un director en la bbdd
-    public function insertarPelicula($peliculas){
-    $conexion=Database::conexion(); 
-    $insertar=$conexion->prepare('INSERT INTO peliculas values(NULL,:titulo,:anyo,:duracion)');
-    $insertar->bindValue(':titulo', $peliculas->get_titulo());
-    $insertar->bindValue(':anyo', $peliculas->get_anyo());
-    $insertar->bindValue(':duracion', $peliculas->get_duracion());
-    $consultaPreparada->execute();
-}
+    public function insertarPelicula($peliculas)
+    {
+        $conexion = Database::conexion();
+        $insertar = $conexion->prepare('INSERT INTO peliculas values(NULL,:titulo,:anyo,:duracion)');
+        $insertar->bindValue(':titulo', $peliculas->get_titulo());
+        $insertar->bindValue(':anyo', $peliculas->get_anyo());
+        $insertar->bindValue(':duracion', $peliculas->get_duracion());
+        $consultaPreparada->execute();
+    }
 }

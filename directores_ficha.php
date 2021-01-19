@@ -22,20 +22,31 @@ session_start();
     <div class="alert alert-secondary d-flex">
         <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
     </div>
+    <?php
+//si tenemos la variable idBorrar, borramos los datos del director
+if (isset($_GET["idBorrar"])) {
+    $idBorrar = $_GET["idBorrar"];
+    $borrarDirector = new CrudDirector();
+    $exito = $borrarDirector->eliminarDirector($idBorrar);
+    if ($exito == 1) {
+        echo '<div class="alert alert-success" role="alert">';
+        echo "<h2>El director ha sido borrado con éxito</h2></div>";
+        echo '<a href="./peliculas.php">volver al inicio</a>';
+    } else {
+        echo '<div class="alert alert-danger" role="alert">';
+        echo "<h2>El director no ha sido borrado con éxito</h2></div>";
+        echo '<a href="peliculas.php">volver al inicio</a>';
+    }
+} else {
+    ?>
     <div class="container">
     <?php
-    //si tenemos la variable idBorrar, borramos los datos del director
-    if (isset($_GET["idBorrar"])) {
-        $idBorrar=$_GET["idBorrar"];
-        $borrarDirector=new CrudDirector();
-        $borrarDirector->eliminarDirector($idBorrar);
-    }else{
     $id_director = $_GET["id"];
-    $directorCrud=new CrudDirector();
-    $director=$directorCrud->datosDirector($id_director);
+    $directorCrud = new CrudDirector();
+    $director = $directorCrud->datosDirector($id_director);
     $directorCrud->imprimirDatosDirector($director);
-    }
-    ?>
+}
+?>
     </div>
 </body>
 
