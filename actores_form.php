@@ -16,13 +16,9 @@ session_start();
 </head>
 
 <body>
-    <div class="alert alert-secondary d-flex">
-        <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
-    </div>
-    <div class="container">
         <?php
+        //si insertamos datos, actualizamos los datos de esa pelicula y mostramos el mensaje
         if (isset($_POST["nombre"]) & isset($_POST["anyoNacimiento"]) & isset($_POST["pais"])) {
-            //si insertamos datos, actualizamos los datos de esa pelicula
             $crudActor = new CrudActores();
             $actor=new Actor($_POST["nombre"], $_POST["anyoNacimiento"],$_POST["pais"],$_GET["id"]);
             $exito=$crudActor::editarActor($actor);
@@ -35,16 +31,21 @@ session_start();
                 echo "<h2>La película no ha sido guardada con éxito</h2></div>";
                 echo '<a href="peliculas.php">volver al inicio</a>';
             }
-        
+        //en caso contrario mostramos el formulario de edicion
         }else{
         $id = $_GET["id"];
         $crudActor = new CrudActores();
         $actor = $crudActor->datosActor($id);
+        
+        //extraemos las datos para insertalos por defecto en el formulario
         $nombre = $actor->get_nombre();
         $anyoNacimiento = $actor->get_anyoNacimiento();
         $pais = $actor->get_pais();
-
         ?>
+        <div class="alert alert-secondary d-flex">
+            <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
+        </div>
+        <div class="container">
         <div class="container">
             <h1>Edición de actores</h1>
             <form action="actores_form.php?id=<?php echo $id ?>" method="POST">

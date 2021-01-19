@@ -3,6 +3,8 @@ require_once './classes/directores.php';
 require_once './lib/database.php';
 class CrudDirector{
     public function __construct(){}
+
+//funcion que obtiene el id del director en relacion con la pelicula
 public function obtenerDirector($id_pelicula){
     $conexion = database::conexion();
     //consultamos el id del director correspondiente con la id_pelicula en la tabla peliculas_directores
@@ -11,13 +13,12 @@ public function obtenerDirector($id_pelicula){
         $consultaPreparada->execute();
         $resultado = $consultaPreparada->fetch(PDO::FETCH_OBJ);
         $id_director= $resultado->id_director;
-        /*una vez tenemos el id del director correspondiente a la pelicula, extraemos los datos 
-        del director en la tabla directores*/
+        //con el id del director, devolvemos la clase director con sus datos
         return $this->datosDirector($id_director);
         
 }
 //funcion que imprime el nombre del director
-public function imprimirDirector($director){
+public function imprimirNombreDirector($director){
     echo '<p><strong>Director:</strong></p>';
     echo '<a href=directores_ficha.php?id='.$director->get_id().'>'. $director->get_nombre().'</a>';
 }
@@ -27,8 +28,8 @@ public function imprimirDatosDirector($director){
     echo '<p><strong>Nombre: </strong>'.$director->get_nombre().'</p><br>';
     echo '<p><strong>Año de nacimiento: </strong>'.$director->get_anyoNacimiento().'</p><br>';
     echo '<p><strong>País: </strong>'.$director->get_pais().'</p><br>';
-    echo '<a class="editar" href="actores_form.php?id=' . $director->get_id() . '">editar</a>';
-    echo '<a class="borrado" href="actores_ficha.php?idBorrar=' . $director->get_id() . '">borrar</a>';
+    echo '<a class="editar" href="directores_form.php?id=' . $director->get_id() . '">editar</a>';
+    echo '<a class="borrado" href="directores_ficha.php?idBorrar=' . $director->get_id() . '">borrar</a>';
 }
 
 //funcion que crea una clase director con los datos de la bbdd
@@ -47,9 +48,9 @@ public function datosDirector($id_director){
         }
         return $director;
 }
+
 //funcion que actualiza los valores en la base de datos
-public static function editarDirector($director)
-{
+public static function editarDirector($director){
     try {
         $conexion = database::conexion();
         $id=$director->get_id();
@@ -66,14 +67,28 @@ public static function editarDirector($director)
         $exito = 0;
         return $exito;
     }
-
 }
+
 //funcion que elimina el director
-public function eliminarDirector($id){
+public function eliminarDirector($id_director){
     $conexion = database::conexion();
-    $consulta="DELETE FROM directores WHERE  id=:id";
+    $consulta="DELETE FROM directores WHERE  id=:id_director";
     $consultaPreparada = $conexion->prepare($consulta);
-    $consultaPreparada->bindValue(':id', $id);
+    $consultaPreparada->bindValue(':id_director', $id_director);
+    $consultaPreparada->execute();
+    $consulta="DELETE FROM peliculas_directores WHERE  id_director=:id_director";
+    $consultaPreparada = $conexion->prepare($consulta);
+    $consultaPreparada->bindValue(':id_director', $id_director);
+    $consultaPreparada->execute();
+}
+
+//funcion que inserta un director en la bbdd
+public function insertarDirector($director){
+    $conexion=Database::conexion(); 
+    $insertar=$conexion->prepare('INSERT INTO directores values(NULL,:nombre,:anyoNacimiento,:pais)');
+    $insertar->bindValue(':nombre', $director->get_nombre());
+    $insertar->bindValue(':anyoNacimiento', $director->get_anyoNacimiento());
+    $insertar->bindValue(':pais', $director->get_pais());
     $consultaPreparada->execute();
 }
 }

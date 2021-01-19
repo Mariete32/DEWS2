@@ -18,8 +18,7 @@ public function obtenerActor($idPelicula){
             $idActor = $value["id_actor"];
             $actor=$this->datosActor($idActor);
             $this->imprimirNombreActor($actor);
-        }
-        
+        }        
 }
 
 //funcion que devuelve una clase actor con sus datos
@@ -82,6 +81,16 @@ public static function editarActor($actor){
         $exito = 0;
         return $exito;
     }
+}
+
+//funcion que inserta un director en la bbdd
+public function insertarActor($actor){
+    $conexion=Database::conexion(); 
+    $insertar=$conexion->prepare('INSERT INTO actores values(NULL,:nombre,:anyoNacimiento,:pais)');
+    $insertar->bindValue(':nombre', $actor->get_nombre());
+    $insertar->bindValue(':anyoNacimiento', $actor->get_anyoNacimiento());
+    $insertar->bindValue(':pais', $actor->get_pais());
+    $consultaPreparada->execute();
 }
 }
 ?>

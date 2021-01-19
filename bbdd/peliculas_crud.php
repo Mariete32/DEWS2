@@ -4,9 +4,9 @@ require_once './lib/database.php';
 
 class CrudPeliculas{
     public function __construct(){}
-//funcion que nos devuelve la clase pelicula con sus datos
-    public function obtenerPelicula($id)
-    {
+
+    //funcion que nos devuelve la clase pelicula con sus datos
+    public function obtenerPelicula($id){
         $conexion = database::conexion();
         $consulta = "SELECT * FROM peliculas WHERE id=:id";
         $consultaPreparada = $conexion->prepare($consulta);
@@ -79,4 +79,14 @@ class CrudPeliculas{
         $consultaPreparada->bindValue(':id', $id);
         $consultaPreparada->execute();
     }
+
+    //funcion que inserta un director en la bbdd
+    public function insertarPelicula($peliculas){
+    $conexion=Database::conexion(); 
+    $insertar=$conexion->prepare('INSERT INTO peliculas values(NULL,:titulo,:anyo,:duracion)');
+    $insertar->bindValue(':titulo', $peliculas->get_titulo());
+    $insertar->bindValue(':anyo', $peliculas->get_anyo());
+    $insertar->bindValue(':duracion', $peliculas->get_duracion());
+    $consultaPreparada->execute();
+}
 }
