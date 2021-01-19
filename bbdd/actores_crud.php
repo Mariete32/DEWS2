@@ -83,7 +83,7 @@ public static function editarActor($actor){
     }
 }
 
-//funcion que inserta un director en la bbdd
+//funcion que inserta un actor en la bbdd
 public function insertarActor($actor){
     $conexion=Database::conexion(); 
     $insertar=$conexion->prepare('INSERT INTO actores values(NULL,:nombre,:anyoNacimiento,:pais)');

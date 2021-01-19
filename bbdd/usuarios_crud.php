@@ -44,5 +44,34 @@ public function eliminarUsuario($id){
     $consultaPreparada->bindValue(':id', $id);
     $consultaPreparada->execute();
 }
+
+//funcion que inserta un usuario en la bbdd
+public function insertarUsuario($usuario){
+    $conexion=Database::conexion(); 
+    $insertar=$conexion->prepare('INSERT INTO actores values(NULL,:email,:password,FALSE)');
+    $insertar->bindValue(':email', $usuario->get_email());
+    $insertar->bindValue(':password', $usuario->get_password());
+    $insertar->bindValue(':pais', $actor->get_pais());
+    $consultaPreparada->execute();
+}
+
+//funcion que actualiza los valores en la base de datos
+public static function editarUsuario($usuario){
+    try {
+        $conexion = database::conexion();
+        $id = $usuario->get_id();
+        $actualizacion = "UPDATE usuarios SET email=:email, password=:password, id=:id WHERE id=$id";
+        $consultaPreparada = $conexion->prepare($actualizacion);
+        $consultaPreparada->bindValue(':email', $usuario->get_email());
+        $consultaPreparada->bindValue(':password', $usuario->get_password());
+        $consultaPreparada->bindValue(':id', $usuario->get_id());
+        $consultaPreparada->execute();
+        $exito = 1;
+        return $exito;
+    } catch (exception $e) {
+        $exito = 0;
+        return $exito;
+    }
+}
 }
 ?>
