@@ -40,10 +40,11 @@ if (isset($_GET["id"])) {
     //creamos la clase director con los datos desde el cruddirector
     $crudDirector = new CrudDirector();
     $director=$crudDirector->obtenerDirector($ID_pelicula);
-
+if (!empty($director)) {
     //imprimimos el nombre del director
     $crudDirector->imprimirNombreDirector($director);
-
+}
+    
     //creamos las clases de los actores
     $CrudActores = new CrudActores();
     echo '<p><strong>Actores:</strong></p>';

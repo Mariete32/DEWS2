@@ -12,9 +12,16 @@ public function obtenerDirector($id_pelicula){
         $consultaPreparada = $conexion->prepare($consulta);
         $consultaPreparada->execute();
         $resultado = $consultaPreparada->fetch(PDO::FETCH_OBJ);
-        $id_director= $resultado->id_director;
+        //si existe director lo mostramos
+        if (!empty($resultado)) {
+            $id_director= $resultado->id_director;
         //con el id del director, devolvemos la clase director con sus datos
         return $this->datosDirector($id_director);
+        } else {
+            echo "";
+        }
+        
+        
         
 }
 //funcion que imprime el nombre del director

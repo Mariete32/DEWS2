@@ -24,10 +24,17 @@ session_start();
     </div>
     <div class="container">
     <?php
+    //si tenemos la variable idBorrar, borramos los datos del director
+    if (isset($_GET["idBorrar"])) {
+        $idBorrar=$_GET["idBorrar"];
+        $borrarDirector=new CrudDirector();
+        $borrarDirector->eliminarDirector($idBorrar);
+    }else{
     $id_director = $_GET["id"];
     $directorCrud=new CrudDirector();
     $director=$directorCrud->datosDirector($id_director);
     $directorCrud->imprimirDatosDirector($director);
+    }
     ?>
     </div>
 </body>

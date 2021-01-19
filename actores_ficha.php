@@ -25,7 +25,7 @@ session_start();
     </div>
     <div class="container">
     <?php
-    //si tenemos la vairable idBorrar, borramos los datos de la pelicula
+    //si tenemos la variable idBorrar, borramos los datos del actor
     if (isset($_GET["idBorrar"])) {
         $idBorrar=$_GET["idBorrar"];
         $borrarActor=new CrudActores();
