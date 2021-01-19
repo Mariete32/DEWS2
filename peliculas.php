@@ -33,6 +33,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 }
 ?>
 <!DOCTYPE html>
+
 <head>
     <meta charset="utf-8">
     <title>Películas</title>
@@ -46,11 +47,9 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 </head>
 
 <body>
-    <div class="alert alert-secondary d-flex">
-        <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
-    </div>
-    
-        <?php
+
+
+    <?php
         //si tenemos la vairable idBorrar, borramos los datos de la pelicula
         if (isset($_GET["idBorrar"])) {
             $idBorrar=$_GET["idBorrar"];
@@ -67,8 +66,11 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             }
         }else{
             ?>
-            <div class="alert alert-light d-flex" role="alert">
-            <?php
+    <div class="alert alert-secondary d-flex">
+        <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
+    </div>
+    <div class="alert alert-light d-flex" role="alert">
+        <?php
             //mostramos las peliculas existentes
             $peliculas=new CrudPeliculas();
             $peliculas->mostrarPeliculas();

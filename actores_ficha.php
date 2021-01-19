@@ -20,9 +20,6 @@ session_start();
 </head>
 
 <body>
-    <div class="alert alert-secondary d-flex">
-        <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
-    </div>
     <?php
     //si tenemos la variable idBorrar, borramos los datos del actor
     if (isset($_GET["idBorrar"])) {
@@ -40,8 +37,11 @@ session_start();
         }
     }else{
         ?>
+    <div class="alert alert-secondary d-flex">
+        <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
+    </div>
     <div class="container">
-    <?php
+        <?php
     $id_actor = $_GET["id"];
     $actorCrud=new CrudActores();
     $actor=$actorCrud->datosActor($id_actor);

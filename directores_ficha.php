@@ -19,9 +19,7 @@ session_start();
 </head>
 
 <body>
-    <div class="alert alert-secondary d-flex">
-        <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
-    </div>
+
     <?php
 //si tenemos la variable idBorrar, borramos los datos del director
 if (isset($_GET["idBorrar"])) {
@@ -39,6 +37,9 @@ if (isset($_GET["idBorrar"])) {
     }
 } else {
     ?>
+    <div class="alert alert-secondary d-flex">
+        <a href="./peliculas.php" class="btn btn-dark">Películas</a>&nbsp;&nbsp;
+    </div>
     <div class="container">
     <?php
     $id_director = $_GET["id"];
