@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-12-2020 a las 20:32:56
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.2
+-- Tiempo de generación: 21-01-2021 a las 18:54:50
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,49 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `videoclub`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `PELICULAS`
---
-
-CREATE TABLE `peliculas` (
-  `id` int(11) NOT NULL,
-  `titulo` varchar(50) NOT NULL,
-  `anyo` int(11) NOT NULL,
-  `duracion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `peliculas`
---
-
-INSERT INTO `peliculas` (`id`, `titulo`, `anyo`, `duracion`) VALUES
-(1, 'El Padrino', 1972, 175),
-(2, 'El Padrino 2', 1974, 200),
-(3, 'Senderos de gloria', 1957, 86),
-(4, 'Primera plana', 1974, 105);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `guardaCredenciales` BOOLEAN NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `email`, `password`, `guardaCredenciales`) VALUES
-(1, 'mario@gmail.com', '123', 'false');
 
 -- --------------------------------------------------------
 
@@ -96,7 +52,6 @@ INSERT INTO `actores` (`id`, `nombre`, `anyoNacimiento`, `pais`) VALUES
 (11, 'Walter Matthau', '1920', 'Estados Unidos'),
 (12, 'Susan Sarandon', '1946', 'Estados Unidos');
 
-
 -- --------------------------------------------------------
 
 --
@@ -119,11 +74,33 @@ INSERT INTO `directores` (`id`, `nombre`, `anyoNacimiento`, `pais`) VALUES
 (2, 'Stanley Kubrick', '1928', 'Estados Unidos'),
 (3, 'Billy Wilder', '1906', 'Estados Unidos');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `peliculas`
+--
+
+CREATE TABLE `peliculas` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `anyo` int(11) NOT NULL,
+  `duracion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `peliculas`
+--
+
+INSERT INTO `peliculas` (`id`, `titulo`, `anyo`, `duracion`) VALUES
+(1, 'El Padrino', 1972, 175),
+(2, 'El Padrino 2', 1974, 200),
+(3, 'Senderos de gloria', 1957, 86),
+(4, 'Primera plana', 1974, 105);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `PELICULAS_ACTORES`
+-- Estructura de tabla para la tabla `peliculas_actores`
 --
 
 CREATE TABLE `peliculas_actores` (
@@ -132,29 +109,28 @@ CREATE TABLE `peliculas_actores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `PELICULAS_ACTORES`
+-- Volcado de datos para la tabla `peliculas_actores`
 --
 
 INSERT INTO `peliculas_actores` (`id_pelicula`, `id_actor`) VALUES
-(1,1),
-(1,2),
-(1,3),
-(1,4),
-(1,5),
-(2,1),
-(2,2),
-(2,3),
-(2,5),
-(2,6),
-(3,7),
-(3,8),
-(3,9);
-
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 5),
+(2, 6),
+(3, 7),
+(3, 8),
+(3, 9);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `PELICULAS_directores`
+-- Estructura de tabla para la tabla `peliculas_directores`
 --
 
 CREATE TABLE `peliculas_directores` (
@@ -163,19 +139,58 @@ CREATE TABLE `peliculas_directores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `PELICULAS_directores`
+-- Volcado de datos para la tabla `peliculas_directores`
 --
 
 INSERT INTO `peliculas_directores` (`id_pelicula`, `id_director`) VALUES
-(1,1),
-(2,1),
-(3,2),
-(4,3);
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 3);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `guardaCredenciales` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `email`, `password`, `guardaCredenciales`) VALUES
+(1, 'mario@gmail.com', '123', 0),
+(2, 'alumno', 'alumno', 0);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `actores`
+--
+ALTER TABLE `actores`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `directores`
+--
+ALTER TABLE `directores`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `peliculas`
+--
+ALTER TABLE `peliculas`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `titulo` (`titulo`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -185,48 +200,26 @@ ALTER TABLE `usuarios`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indices de la tabla `peliculas`
---
-ALTER TABLE `peliculas`
-  ADD PRIMARY KEY `id` (`id`),
-  ADD UNIQUE KEY `titulo` (`titulo`);
-  
---
--- Indices de la tabla `actores`
---
-ALTER TABLE `actores`
-  ADD PRIMARY KEY `id` (`id`);
-
---
--- Indices de la tabla `directores`
---
-ALTER TABLE `directores`
-  ADD PRIMARY KEY `id` (`id`);
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
-
---
--- AUTO_INCREMENT de la tabla `peliculas`
---
-ALTER TABLE `peliculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-COMMIT;
 
 --
 -- AUTO_INCREMENT de la tabla `actores`
 --
 ALTER TABLE `actores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-COMMIT;
 
 --
 -- AUTO_INCREMENT de la tabla `directores`
 --
 ALTER TABLE `directores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-COMMIT;
 
+--
+-- AUTO_INCREMENT de la tabla `peliculas`
+--
+ALTER TABLE `peliculas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -234,6 +227,7 @@ COMMIT;
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
