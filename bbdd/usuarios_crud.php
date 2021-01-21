@@ -25,7 +25,7 @@ public function obtenerEmailPassword($id){
     $conexion = database::conexion();
     $consulta="SELECT * FROM usuarios WHERE id=:id";
     $consulta_preparada=$conexion->prepare($consulta);
-    $consultaPreparada->bindValue(':id', $id);
+    $consulta_preparada->bindParam(':id', $id);
     $consulta_preparada->execute();
     $resultado = $consulta_preparada->fetchAll(PDO::FETCH_ASSOC);
     foreach ($resultado as $valor) {

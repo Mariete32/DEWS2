@@ -4,8 +4,7 @@ require_once './lib/database.php';
 
 class CrudPeliculas
 {
-    public function __construct()
-    {}
+    public function __construct(){}
 
     //funcion que nos devuelve la clase pelicula con sus datos
     public function obtenerPelicula($id)

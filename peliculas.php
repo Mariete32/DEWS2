@@ -19,7 +19,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     if ($id == 0 || $id == null) {
         header("Location: ./index.php?error=1");
     } else {
-        //guardamos el email en la session para que no nos redirija a index una vez logueados
+        //guardamos el email en la session para que no nos redirija a index si ya hemos iniciado sesion
         $_SESSION["usuario"]=$_POST["email"];
         //si marca recordar credenciales, almacenamos el ID en la coockie
         if (isset($_POST["recordatorio"])) {
